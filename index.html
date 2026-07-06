@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico Empresarial | Qualifica Impacto Comunidades</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --roxo-principal: #4C1D6E;
+      --roxo-secundaria: #8E44AD;
+      --dourado-acento: #ECC203;
+      --cinza-neutro: #F3F1F7;
+      --roxo-escuro: #2E0F42;
+      --branco: #FFFFFF;
+      --vermelho-erro: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--cinza-neutro);
+      color: var(--roxo-escuro);
+    }
+
+    .header {
+      background: var(--roxo-principal);
+      color: var(--branco);
+      padding: 30px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .logo-programa {
+      height: 55px;
+      width: auto;
+      background-color: var(--branco);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .regua-logos-container {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid var(--cinza-neutro);
+    }
+
+    .regua-logos {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .location-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--dourado-acento);
+      text-align: center;
+    }
+
+    .address-text {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      color: var(--branco);
+      opacity: 0.85;
+      text-align: center;
+      margin-top: 2px;
+    }
+
+    .header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      background-color: var(--branco);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .form-section {
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid var(--cinza-neutro);
+    }
+
+    .form-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .form-section h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      color: var(--roxo-principal);
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--roxo-secundaria);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--roxo-escuro);
+    }
+
+    label .required {
+      color: var(--vermelho-erro);
+      margin-left: 3px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-family: 'Open Sans', sans-serif;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      transition: border-color 0.3s;
+      background-color: var(--branco);
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--roxo-secundaria);
+    }
+
+    input.error, select.error, textarea.error {
+      border-color: var(--vermelho-erro);
+    }
+
+    .error-message {
+      color: var(--vermelho-erro);
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-row-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-row-4 {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 2fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .form-row, .form-row-3, .form-row-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    button[type="submit"] {
+      background-color: var(--dourado-acento);
+      color: var(--roxo-principal);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      padding: 16px 40px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      margin-top: 20px;
+      width: 100%;
+      transition: all 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #d4a903;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    button[type="submit"]:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .success-message {
+      background-color: #10b981;
+      color: var(--branco);
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .helper-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .radio-option input[type="radio"] {
+      width: auto;
+      margin: 0;
+    }
+
+    .footer {
+      background: linear-gradient(135deg, var(--roxo-principal) 0%, var(--roxo-escuro) 100%);
+      color: var(--branco);
+      padding: 60px 30px 30px 30px;
+      margin-top: 80px;
+      position: relative;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(135deg, var(--roxo-secundaria) 0%, var(--dourado-acento) 100%);
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 20px;
+        margin: 20px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo-container">
+      <!-- Logomarca roxa do Qualifica Impacto Comunidades -->
+      <img class="logo-programa" src="logos/logo_QIC_roxa.png" alt="Qualifica Impacto Comunidades" />
+      <div class="location-text">CAMPOS DOS GOYTACAZES · RJ</div>
+      <div class="address-text">Av. 7 de Setembro, 230, Centro</div>
+    </div>
+    <h1>Diagnóstico Empresarial Simplificado</h1>
+    <p>Formulário completo para mapear as principais dimensões do negócio</p>
+  </div>
+
+  <main>
+    <div class="success-message" id="successMessage">
+      Formulário enviado com sucesso! Você receberá o relatório por email em breve.
+    </div>
+
+    <form id="formulario" novalidate>
+      <div class="form-section">
+        <h2>Informações Básicas</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Horário de Início do Preenchimento<span class="required">*</span></label>
+            <input type="time" name="inicio" id="inicio" required>
+            <div class="error-message" id="error-inicio">Campo obrigatório</div>
+          </div>
+
+        <div class="form-group">
+  <label>Data do Preenchimento<span class="required">*</span></label>
+  <input type="date" name="data" id="data" required>
+  <div class="error-message" id="error-data">Campo obrigatório</div>
+</div>
+
+          <div class="form-group">
+            <label>Nome do Consultor<span class="required">*</span></label>
+            <input type="text" name="consultor" id="consultor" required>
+            <div class="error-message" id="error-consultor">Campo obrigatório</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Nome do Negócio<span class="required">*</span></label>
+          <input type="text" name="nome_negocio" id="nome_negocio" required>
+          <div class="error-message" id="error-nome_negocio">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>Responsável pelo Negócio<span class="required">*</span></label>
+          <input type="text" name="responsavel" id="responsavel" required>
+          <div class="error-message" id="error-responsavel">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>O negócio possui:<span class="required">*</span></label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="tipo_documento" id="tipo_cpf" value="cpf" required>
+              <label for="tipo_cpf" style="margin: 0;">CPF</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="tipo_documento" id="tipo_cnpj" value="cnpj" required>
+              <label for="tipo_cnpj" style="margin: 0;">CNPJ</label>
+            </div>
+          </div>
+          <div class="error-message" id="error-tipo_documento">Selecione CPF ou CNPJ</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" id="grupo_cpf" style="display: none;">
+            <label>CPF<span class="required">*</span></label>
+            <input type="text" name="cpf" id="cpf" maxlength="14">
+            <div class="error-message" id="error-cpf">CPF inválido</div>
+          </div>
+
+          <div class="form-group" id="grupo_cnpj" style="display: none;">
+            <label>CNPJ<span class="required">*</span></label>
+            <input type="text" name="cnpj" id="cnpj" maxlength="18">
+            <div class="error-message" id="error-cnpj">CNPJ inválido</div>
+          </div>
+
+          <div class="form-group">
+            <label>Data de Início das Atividades<span class="required">*</span></label>
+            <input type="date" name="inicio_atividades" id="inicio_atividades" required>
+            <div class="error-message" id="error-inicio_atividades">Campo obrigatório</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ramo de Atividade (o que você faz?)<span class="required">*</span></label>
+          <input type="text" name="ramo" id="ramo" required>
+          <div class="error-message" id="error-ramo">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>Quantas pessoas trabalham no negócio (incluindo você)?<span class="required">*</span></label>
+          <input type="number" name="pessoas" id="pessoas" min="1" required>
+          <div class="error-message" id="error-pessoas">Mínimo 1 pessoa</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Dados Pessoais do Responsável</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Sexo<span class="required">*</span></label>
+            <select name="sexo" id="sexo" required>
+              <option value="">Selecione</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+            </select>
+            <div class="error-message" id="error-sexo">Campo obrigatório</div>
+          </div>
+
+          <div class="form-group">
+            <label>Data de Nascimento<span class="required">*</span></label>
+            <input type="date" name="nascimento" id="nascimento" required>
+            <div class="error-message" id="error-nascimento">Campo obrigatório</div>
+            <div class="helper-text">Formato: DD/MM/AAAA</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ocupação<span class="required">*</span></label>
+          <select name="ocupacao" id="ocupacao" required>
+            <option value="">Selecione</option>
+            <option value="1000 - Não possui">1000 - Não possui</option>
+            <option value="1001 - Negócio informal (sem CNPJ)">1001 - Negócio informal (sem CNPJ)</option>
+            <option value="1002 - Atividade Rural">1002 - Atividade Rural</option>
+            <option value="1003 - Ambulante">1003 - Ambulante</option>
+          </select>
+          <div class="error-message" id="error-ocupacao">Campo obrigatório</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Endereço Completo</h2>
+
+        <div class="form-row-3">
+          <div class="form-group">
+            <label>Tipo de Logradouro<span class="required">*</span></label>
+            <select name="tipo_logradouro" id="tipo_logradouro" required>
+              <option value="">Selecione</option>
+              <option value="Rua">Rua</option>
+              <option value="Avenida">Avenida</option>
+              <option value="Travessa">Travessa</option>
+              <option value="Praça">Praça</option>
+            </select>
+            <div class="error-message" id="error-tipo_logradouro">Campo obrigatório</div>
+          </div>
+
+          <div class="form-group" style="grid-column: span 2;">
+            <label>Logradouro<span class="required">*</span></label>
+            <input type="text" name="logradouro" id="logradouro" required>
+            <div class="error-message" id="error-logradouro">Campo obrigatório</div>
+          </div>
+        </div>
+
+        <div class="form-row-3">
+          <div class="form-group">
+            <label>Número<span class="required">*</span></label>
+            <input type="text" name="numero" id="numero" required>
+            <div class="error-message" id="error-numero">Campo obrigatório</div>
+            <div class="helper-text">Somente números</div>
+          </div>
+
+          <div class="form-group" style="grid-column: span 2;">
+            <label>Complemento</label>
+            <input type="text" name="complemento" id="complemento">
+          </div>
+        </div>
+
+        <div class="form-row-3">
+          <div class="form-group">
+            <label>Bairro<span class="required">*</span></label>
+            <input type="text" name="bairro" id="bairro" placeholder="Ex.: Centro, Parque Prazeres, Goytacazes..." required>
+            <div class="error-message" id="error-bairro">Campo obrigatório</div>
+          </div>
+
+          <div class="form-group">
+            <label>Município<span class="required">*</span></label>
+            <input type="text" name="municipio" id="municipio" value="Campos dos Goytacazes" required>
+            <div class="error-message" id="error-municipio">Campo obrigatório</div>
+          </div>
+
+          <div class="form-group">
+            <label>UF<span class="required">*</span></label>
+            <input type="text" name="uf" id="uf" value="RJ" maxlength="2" required>
+            <div class="error-message" id="error-uf">Campo obrigatório</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>CEP<span class="required">*</span></label>
+            <input type="text" name="cep" id="cep" maxlength="9" required>
+            <div class="error-message" id="error-cep">CEP inválido</div>
+          </div>
+
+          <div class="form-group">
+            <label>Tipo de Endereço<span class="required">*</span></label>
+            <select name="tipo_endereco" id="tipo_endereco" required>
+              <option value="">Selecione</option>
+              <option value="P - Pessoal">P - Pessoal</option>
+              <option value="C - Comercial">C - Comercial</option>
+            </select>
+            <div class="error-message" id="error-tipo_endereco">Campo obrigatório</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Contato</h2>
+
+        <div class="form-row-4">
+          <div class="form-group">
+            <label>DDD<span class="required">*</span></label>
+            <input type="text" name="ddd" id="ddd" maxlength="2" required>
+            <div class="error-message" id="error-ddd">Obrigatório</div>
+            <div class="helper-text">Somente números</div>
+          </div>
+
+          <div class="form-group" style="grid-column: span 2;">
+            <label>Telefone<span class="required">*</span></label>
+            <input type="tel" name="telefone" id="telefone" maxlength="9" required>
+            <div class="error-message" id="error-telefone">Telefone inválido</div>
+            <div class="helper-text">Somente números</div>
+          </div>
+
+          <div class="form-group">
+            <label>Complemento</label>
+            <input type="text" name="telefone_complemento" id="telefone_complemento">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo de Telefone<span class="required">*</span></label>
+            <select name="tipo_telefone" id="tipo_telefone" required>
+              <option value="">Selecione</option>
+              <option value="R - Residencial">R - Residencial</option>
+              <option value="C - Comercial">C - Comercial</option>
+              <option value="M - Móvel">M - Móvel</option>
+              <option value="F - Fax">F - Fax</option>
+            </select>
+            <div class="error-message" id="error-tipo_telefone">Campo obrigatório</div>
+          </div>
+
+          <div class="form-group">
+            <label>E-mail<span class="required">*</span></label>
+            <input type="email" name="email" id="email" required>
+            <div class="error-message" id="error-email">E-mail inválido</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tipo de E-mail<span class="required">*</span></label>
+            <select name="tipo_email" id="tipo_email" required>
+              <option value="">Selecione</option>
+              <option value="P - Pessoal">P - Pessoal</option>
+              <option value="C - Comercial">C - Comercial</option>
+            </select>
+            <div class="error-message" id="error-tipo_email">Campo obrigatório</div>
+          </div>
+         <div class="form-group">
+  <label>Rede Social (coloque o @)<span class="required">*</span></label>
+  <input type="text" name="rede_social" id="rede_social" placeholder="@qualificaimpacto" required>
+  <div class="error-message" id="error-rede_social">Campo obrigatório</div>
+</div>
+          </div>
+
+      <div class="form-section">
+        <h2>Motivação e Objetivos</h2>
+
+        <div class="form-group">
+          <label>Por que você decidiu abrir este negócio?<span class="required">*</span></label>
+          <textarea name="motivo" id="motivo" required></textarea>
+          <div class="error-message" id="error-motivo">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>Você tem algum objetivo para o negócio?<span class="required">*</span></label>
+          <textarea name="objetivo" id="objetivo" required></textarea>
+          <div class="error-message" id="error-objetivo">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>O que você mais quer conquistar com o negócio nos próximos 12 meses?<span class="required">*</span></label>
+          <textarea name="meta_12_meses" id="meta_12_meses" required></textarea>
+          <div class="error-message" id="error-meta_12_meses">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+         <label>Você já pensou ou escreveu algum plano para isso?<span class="required">*</span></label>
+<input type="text" name="plano" id="plano" required>
+<div class="error-message" id="error-plano">Campo obrigatório</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Gestão Financeira</h2>
+
+        <div class="form-group">
+          <label>Como você organiza o dinheiro que entra e sai do negócio?<span class="required">*</span></label>
+          <textarea name="fluxo" id="fluxo" required></textarea>
+          <div class="error-message" id="error-fluxo">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>Você separa o dinheiro do negócio do dinheiro pessoal?<span class="required">*</span></label>
+          <select name="separa" id="separa" required>
+            <option value="">Selecione uma opção</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+            <option value="Às vezes">Às vezes</option>
+          </select>
+          <div class="error-message" id="error-separa">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>Você sabe quanto ganhou no mês passado (lucro)?<span class="required">*</span></label>
+          <input type="text" name="lucro" id="lucro" required>
+          <div class="error-message" id="error-lucro">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>O que mais te preocupa com relação ao dinheiro do negócio?<span class="required">*</span></label>
+          <textarea name="preocupacao" id="preocupacao" required></textarea>
+          <div class="error-message" id="error-preocupacao">Campo obrigatório</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Recursos e Operação</h2>
+
+        <div class="form-group">
+          <label>Quem te ajuda no negócio? (família, amigos, contratados)<span class="required">*</span></label>
+          <textarea name="ajuda" id="ajuda" required></textarea>
+          <div class="error-message" id="error-ajuda">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>Materiais (ex.: equipamentos, produtos)<span class="required">*</span></label>
+<textarea name="materiais" id="materiais" required></textarea>
+<div class="error-message" id="error-materiais">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+         <label>Tecnologia (ex.: celular, internet, máquinas de pagamento)<span class="required">*</span></label>
+<textarea name="tecnologia" id="tecnologia" required></textarea>
+<div class="error-message" id="error-tecnologia">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+         <label>Existe algo que dificulta o trabalho no dia a dia?<span class="required">*</span></label>
+<select name="dificuldade" id="dificuldade" required>
+            <option value="">Selecione uma opção</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+          </select>
+          <div class="error-message" id="error-dificuldade">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+         <label>Se sim, o que?<span class="required">*</span></label>
+<textarea name="dificuldade_2" id="dificuldade_2" required></textarea>
+<div class="error-message" id="error-dificuldade_2">Campo obrigatório</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Marketing e Vendas</h2>
+
+        <div class="form-group">
+          <label>Como você faz para as pessoas conhecerem o seu negócio?<span class="required">*</span></label>
+          <textarea name="divulgacao" id="divulgacao" required></textarea>
+          <div class="error-message" id="error-divulgacao">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>Onde você vende seus produtos ou serviços?<span class="required">*</span></label>
+          <input type="text" name="venda" id="venda" required>
+          <div class="error-message" id="error-venda">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+         <label>Você acompanha quanto vende?<span class="required">*</span></label>
+<select name="acompanha" id="acompanha" required>
+            <option value="">Selecione uma opção</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+            <option value="Às vezes">Às vezes</option>
+          </select>
+          <div class="error-message" id="error-acompanha">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>O que você acha que poderia melhorar para atrair mais clientes?<span class="required">*</span></label>
+          <textarea name="melhoria_clientes" id="melhoria_clientes" required></textarea>
+          <div class="error-message" id="error-melhoria_clientes">Campo obrigatório</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Equipe e Capacitação</h2>
+
+        <div class="form-group">
+         <label>Quem mais te ajuda no negócio e o que essas pessoas fazem?<span class="required">*</span></label>
+<textarea name="quem_ajuda" id="quem_ajuda" required></textarea>
+<div class="error-message" id="error-quem_ajuda">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+         <label>Você ou as pessoas que te ajudam já fizeram algum curso ou treinamento?<span class="required">*</span></label>
+<select name="curso" id="curso" required>
+            <option value="">Selecione uma opção</option>
+            <option value="Sim">Sim</option>
+            <option value="Não">Não</option>
+          </select>
+          <div class="error-message" id="error-curso">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>Se sim, qual?<span class="required">*</span></label>
+<input type="text" name="curso_detalhe" id="curso_detalhe" required>
+<div class="error-message" id="error-curso_detalhe">Campo obrigatório</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Visão de Futuro</h2>
+
+        <div class="form-group">
+          <label>Se pudesse mudar uma coisa no seu negócio hoje, o que seria?<span class="required">*</span></label>
+          <textarea name="mudanca" id="mudanca" required></textarea>
+          <div class="error-message" id="error-mudanca">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>O que é mais difícil no seu negócio hoje?<span class="required">*</span></label>
+          <textarea name="dificuldade_hoje" id="dificuldade_hoje" required></textarea>
+          <div class="error-message" id="error-dificuldade_hoje">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>O que você gostaria de fazer no futuro para melhorar o negócio?<span class="required">*</span></label>
+          <textarea name="futuro" id="futuro" required></textarea>
+          <div class="error-message" id="error-futuro">Campo obrigatório</div>
+        </div>
+
+        <div class="form-group">
+          <label>Como você descreveria o seu negócio em poucas palavras?<span class="required">*</span></label>
+          <textarea name="descricao" id="descricao" required></textarea>
+          <div class="error-message" id="error-descricao">Campo obrigatório</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Finalização</h2>
+
+        <div class="form-group">
+          <label>Horário de Término do Preenchimento<span class="required">*</span></label>
+          <input type="time" name="fim" id="fim" required>
+          <div class="error-message" id="error-fim">Campo obrigatório</div>
+        </div>
+      </div>
+
+      <div class="regua-logos-container">
+        <!-- Régua de logomarcas institucionais (Instituto BR, Softex, MCTI, Governo do Brasil) -->
+        <img class="regua-logos" src="logos/regua_QIC_BR_cor.png" alt="Instituto BR, Softex, Ministério da Ciência, Tecnologia e Inovação, Governo do Brasil" />
+      </div>
+
+      <button type="submit" id="submitBtn">Enviar Formulário</button>
+    </form>
+  </main>
+
+  <footer class="footer">
+    <div style="text-align: center; opacity: 0.8; font-size: 14px;">
+      Qualifica Impacto Comunidades - Campos dos Goytacazes/RJ<br>
+      Av. 7 de Setembro, 230, Centro<br>
+      &copy; 2026 Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    // URL da aplicação do Google Apps Script (substitua pela URL da implantação do Web App do Qualifica Impacto Comunidades)
+    const GOOGLE_SCRIPT_URL = 'SUBSTITUA_PELA_URL_DO_APPS_SCRIPT_WEB_APP';
+
+    const form = document.getElementById('formulario');
+    const submitBtn = document.getElementById('submitBtn');
+    const successMessage = document.getElementById('successMessage');
+
+    // Lógica para mostrar/esconder CPF/CNPJ
+    document.querySelectorAll('input[name="tipo_documento"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const grupoCpf = document.getElementById('grupo_cpf');
+        const grupoCnpj = document.getElementById('grupo_cnpj');
+        const inputCpf = document.getElementById('cpf');
+        const inputCnpj = document.getElementById('cnpj');
+
+        if (this.value === 'cpf') {
+          grupoCpf.style.display = 'block';
+          grupoCnpj.style.display = 'none';
+          inputCpf.required = true;
+          inputCnpj.required = false;
+          inputCnpj.value = '';
+        } else {
+          grupoCpf.style.display = 'none';
+          grupoCnpj.style.display = 'block';
+          inputCpf.required = false;
+          inputCnpj.required = true;
+          inputCpf.value = '';
+        }
+      });
+    });
+
+    // Máscaras
+    function aplicarMascaraCPF(e) {
+      let valor = e.target.value.replace(/\D/g, '');
+      valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+      valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+      valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+      e.target.value = valor;
+    }
+
+    function aplicarMascaraCNPJ(e) {
+      let valor = e.target.value.replace(/\D/g, '');
+      valor = valor.replace(/^(\d{2})(\d)/, '$1.$2');
+      valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+      valor = valor.replace(/\.(\d{3})(\d)/, '.$1/$2');
+      valor = valor.replace(/(\d{4})(\d)/, '$1-$2');
+      e.target.value = valor;
+    }
+
+    function aplicarMascaraCEP(e) {
+      let valor = e.target.value.replace(/\D/g, '');
+      valor = valor.replace(/^(\d{5})(\d)/, '$1-$2');
+      e.target.value = valor;
+    }
+
+    function aplicarMascaraDDD(e) {
+      let valor = e.target.value.replace(/\D/g, '').substring(0, 2);
+      e.target.value = valor;
+    }
+
+    function aplicarMascaraTelefone(e) {
+      let valor = e.target.value.replace(/\D/g, '');
+      e.target.value = valor;
+    }
+
+    document.getElementById('cpf').addEventListener('input', aplicarMascaraCPF);
+    document.getElementById('cnpj').addEventListener('input', aplicarMascaraCNPJ);
+    document.getElementById('cep').addEventListener('input', aplicarMascaraCEP);
+    document.getElementById('ddd').addEventListener('input', aplicarMascaraDDD);
+    document.getElementById('telefone').addEventListener('input', aplicarMascaraTelefone);
+
+    // Validação de Campo
+    function validarCampo(campo) {
+      const errorDiv = document.getElementById(`error-${campo.id}`);
+      let valido = true;
+
+      if (campo.hasAttribute('required') && !campo.value.trim()) {
+        valido = false;
+      }
+
+      if (!valido) {
+        campo.classList.add('error');
+        if (errorDiv) errorDiv.classList.add('show');
+      } else {
+        campo.classList.remove('error');
+        if (errorDiv) errorDiv.classList.remove('show');
+      }
+      return valido;
+    }
+
+    // Interceptação do Submit
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Define horário de término se não preenchido
+      if (!document.getElementById('fim').value) {
+        const agora = new Date();
+        document.getElementById('fim').value = agora.getHours().toString().padStart(2, '0') + ':' + agora.getMinutes().toString().padStart(2, '0');
+      }
+
+      // Validação Geral
+      let formularioValido = true;
+      const camposParaValidar = form.querySelectorAll('input[required], select[required], textarea[required]');
+      camposParaValidar.forEach(campo => {
+        if (!validarCampo(campo)) {
+          formularioValido = false;
+        }
+      });
+
+      if (!formularioValido) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        const primeiroErro = form.querySelector('.error');
+        if (primeiroErro) primeiroErro.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+
+      // Coleta de Dados
+      const formData = new FormData(form);
+      const dados = {};
+      formData.forEach((value, key) => {
+        dados[key] = value;
+      });
+
+      // Campo calculado: Telefone Completo
+      dados.telefone_completo = `(${dados.ddd}) ${dados.telefone}`;
+
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          cache: 'no-cache',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dados)
+        });
+
+        successMessage.classList.add('show');
+        form.reset();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        setTimeout(() => {
+          successMessage.classList.remove('show');
+        }, 8000);
+
+      } catch (error) {
+        console.error('Erro ao enviar:', error);
+        alert('Erro ao enviar o formulário. Verifique sua conexão.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Enviar Formulário';
+      }
+    });
+  </script>
+</body>
+</html>
